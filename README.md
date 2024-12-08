@@ -34,7 +34,7 @@ By simplifying this workflow, researchers can focus on genomic analysis without 
 
 To run these scripts, the following tools and Python libraries are required:
 
-#### System Tools
+#### System Tools—Note: They are directly installed by running the dependencies.sh bash code. There is no need to install them manually.
 1. **`samtools`**: For indexing genome files in FASTA format (`.fai`).
    - Installation: `sudo apt-get install samtools`
 2. **`bgzip`**: For compressing annotation files in BGZF format.
@@ -54,6 +54,8 @@ To run these scripts, the following tools and Python libraries are required:
 2. **gzip**: For handling gzipped files (bundled with Python's standard library).
 3. **shutil**: For managing files and directories (bundled with Python's standard library).
 4. **subprocess**: For running system commands (bundled with Python's standard library).
+5. **json**: For reading and writing JSON data, often used in configuration files and structured data management (bundled with Python's standard library).
+6. **os**: Provides functionalities for interacting with the operating system, such as file path manipulations and environment management (bundled with Python's standard library).
 
 ### How It Works
 
