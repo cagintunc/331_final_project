@@ -10,14 +10,12 @@ def fix_config_paths(config_path, base_dir):
     with open(config_path, "r") as file:
         config = json.load(file)
 
-    # Update assembly paths
     for assembly in config.get("assemblies", []):
         fasta = assembly["sequence"]["adapter"]["fastaLocation"]["uri"]
         fai = assembly["sequence"]["adapter"]["faiLocation"]["uri"]
         assembly["sequence"]["adapter"]["fastaLocation"]["uri"] = os.path.relpath(fasta, base_dir)
         assembly["sequence"]["adapter"]["faiLocation"]["uri"] = os.path.relpath(fai, base_dir)
 
-    # Update track paths
     for track in config.get("tracks", []):
         gff_gz_location = track["adapter"]["gffGzLocation"]["uri"]
         index_location = track["adapter"]["index"]["location"]["uri"]
@@ -29,11 +27,9 @@ def fix_config_paths(config_path, base_dir):
         if not index_location.endswith(".gz.tbi"):
             track["adapter"]["index"]["location"]["uri"] = f"{index_location}.gz.tbi"
 
-        # Convert to relative paths
         track["adapter"]["gffGzLocation"]["uri"] = os.path.relpath(track["adapter"]["gffGzLocation"]["uri"], base_dir)
         track["adapter"]["index"]["location"]["uri"] = os.path.relpath(track["adapter"]["index"]["location"]["uri"], base_dir)
 
-    # Save the fixed config file
     with open(config_path, "w") as file:
         json.dump(config, file, indent=2)
 
