@@ -29,8 +29,8 @@
 
 - **Justin Sung**  
   *Role:* Developer and Maintainer  
-  *Email:* [john.doe@example.com](mailto:john.doe@example.com)
-  *GitHub:* [https://github.com/johndoe](https://github.com/johndoe)  
+  *Email:* [jwsung@berkeley.edu](mailto:jwsung@berkeley.edu)
+  *GitHub:* [https://github.com/Jws0505](https://github.com/Jws0505)  
 
 ## Overview <a name="overview"></a>
 
