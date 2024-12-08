@@ -336,6 +336,58 @@ def clean_directories():
         print("Cleanup complete.")
     except PermissionError as e:
         print(f"Permission error: {e}. Try running the script with elevated privileges.")
+
+
+def maf_to_paf(maf_file, paf_file):
+    with open(maf_file, 'r') as maf, open(paf_file, 'w') as paf:
+        query_name, query_start, query_end = None, None, None
+        target_name, target_start, target_end = None, None, None
+        query_len, target_len = None, None
+        strand = '+'
+
+        for line in maf:
+            if line.startswith('s'):  
+                parts = line.split()
+                if query_name is None:  
+                    query_name = parts[1]
+                    query_start = int(parts[2])
+                    query_len = int(parts[5])
+                    query_end = query_start + int(parts[3])
+                else:  
+                    target_name = parts[1]
+                    target_start = int(parts[2])
+                    target_len = int(parts[5])
+                    target_end = target_start + int(parts[3])
+
+                    paf.write(f"{query_name}\t{query_len}\t{query_start}\t{query_end}\t{strand}\t"
+                              f"{target_name}\t{target_len}\t{target_start}\t{target_end}\t"
+                              f"{query_end - query_start}\t{query_end - query_start}\t60\n")
+
+                    query_name, query_start, query_end = None, None, None
+
+
+def create_paf_file(vir1, vir2, output_maf, db_name="mers_db", threads=4):
+    try:
+        print("Installing last-align if not present...")
+        subprocess.run(["sudo", "apt", "install", "-y", "last-align"], check=True)
+        
+        print(f"Creating LAST database: {db_name} from {vir1}...")
+        subprocess.run(["lastdb", db_name, vir1], check=True)
+        
+        print(f"Running alignment: {vir1} against {vir2}...")
+        with open(output_maf, "w") as maf_file:
+            subprocess.run(["lastal", f"-m100", f"-E0.05", f"-P{threads}", db_name, vir2], stdout=maf_file, check=True)
+        
+        print(f"Alignment complete. Output written to {output_maf}")
+        paf_file = "jbrowse2/mers_sars.paf"
+        maf_to_paf(output_maf, paf_file)
+
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred while executing the command: {e}")
+    except FileNotFoundError as e:
+        print(f"Required tool not found. Please ensure 'last-align' is installed: {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
         
 
 
@@ -344,7 +396,8 @@ if __name__ == "__main__":
     clean_choice = input("Do you want to clean existing directories before running? (yes/no): ").strip().lower()
     if clean_choice in ["yes", "y"]:
         clean_directories()
-    for vir in ["sars_cov_2", "mers"]:
+    virs = ["sars_cov_2", "mers"]
+    for vir in virs:
         virus = GENOME_LINKS[vir]
         install_dependencies()
         setup_jbrowse()
@@ -354,6 +407,8 @@ if __name__ == "__main__":
         download_and_process_annotations(virus)
         add_annotation_track(virus)
         update_config_file(virus)
-        print("All tasks completed successfully!")
+
+    create_paf_file("jbrowse2/mers.fa", "jbrowse2/sars_cov_2.fa", "jbrowse2/sars_mers.maf", db_name="mers_db")
+    print("All tasks completed successfully!")
 
 
