@@ -329,10 +329,14 @@ def index_for_gene_search():
 
 def clean_directories():
     """Delete directories and files created by the script."""
-    if os.path.exists(JBROWSE_DIR):
-        print(f"Removing existing directory: {JBROWSE_DIR}")
-        shutil.rmtree(JBROWSE_DIR)
-    print("Cleanup complete.")
+    try:
+        if os.path.exists(JBROWSE_DIR):
+            print(f"Removing existing directory: {JBROWSE_DIR}")
+            shutil.rmtree(JBROWSE_DIR)
+        print("Cleanup complete.")
+    except PermissionError as e:
+        print(f"Permission error: {e}. Try running the script with elevated privileges.")
+        
 
 
 if __name__ == "__main__":
