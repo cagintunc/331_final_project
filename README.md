@@ -48,7 +48,7 @@ To run these scripts, the following tools and Python libraries are required:
 6. **`jbrowse`**: The CLI for JBrowse 2 to add assemblies and tracks.
    - Installation: Follow [JBrowse CLI Installation Guide](https://jbrowse.org/cli/).
 
-#### Python Dependencies
+#### Python Dependencies - For further information, please look the requirements.
 1. **Biopython**: Used for parsing CDS files and converting them to GFF format.
    - Installation: `pip install biopython`
 2. **gzip**: For handling gzipped files (bundled with Python's standard library).
@@ -68,6 +68,52 @@ The `db.py` script automates the following steps:
    - Handles both `.tbi` (Tabix) and `.csi` (Coordinate Sorted Index) indexing.
 4. **Configuration Updates**: Updates the JBrowse `config.json` file to include assemblies and annotation tracks for SARS and MERS.
 5. **JBrowse Integration**: Adds assemblies and tracks to the JBrowse setup using the CLI.
+6. **Easily Extendable Genome Database with `db.py`**
+
+The `db.py` file is designed to make it incredibly easy to add new genomes to your local database. The only requirement is to add a new key to the `GENOME_LINKS` dictionary. Each key represents a genome name, and the corresponding value is a dictionary containing all the necessary information for that genome.
+
+6.1. **Current `GENOME_LINKS` Structure**
+
+Here’s an example of the `GENOME_LINKS` dictionary in the code:
+
+```python
+GENOME_LINKS = {
+    "mers": {
+        "genome": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/901/155/GCF_000901155.1_ViralProj183710/GCF_000901155.1_ViralProj183710_genomic.fna.gz",
+        "annotations": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/901/155/GCF_000901155.1_ViralProj183710/GCF_000901155.1_ViralProj183710_genomic.gff.gz",
+        "name": ("MERS", "mers"),
+        "cds_path": "mers.cds",
+        "gff_path": "mers_genes.gff"
+    },
+    "sars_cov_2": {
+        "genome": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.fna.gz",
+        "annotations": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/009/858/895/GCF_009858895.2_ASM985889v3/GCF_009858895.2_ASM985889v3_genomic.gff.gz",
+        "name": ("SARS Covid 2", "sars_cov_2"),
+        "cds_path": "sars_cov.cds",
+        "gff_path": "sars_genes.gff"
+    }
+}
+```
+6.2. **Adding a New Genome**
+To add a new genome, simply append a new key-value pair to the GENOME_LINKS dictionary. Here's an example of adding a new genome, ebola:
+
+```python
+GENOME_LINKS["ebola"] = {
+    "genome": "https://example_path/GCF_ebola_genomic.fna.gz",
+    "annotations": "https://example_path/GCF_ebola_genomic.gff.gz",
+    "name": ("Ebola", "ebola"),
+    "cds_path": "ebola.cds",
+    "gff_path": "ebola_genes.gff"
+}
+```
+
+6.3. **Required Fields for Each Genome**
+- **genome**: URL to the genomic .fna.gz file.
+- **annotations**: URL to the annotation .gff.gz file.
+- **name**: A tuple containing the full genome name and its short identifier.
+- **cds_path**: The local path for the coding sequences (CDS) file.
+- **gff_path**: The local path for the GFF (gene annotation) file.
+
 
 #### `fix_config.py`
 The `fix_config.py` script ensures the paths in the JBrowse configuration file (`config.json`) are relative instead of absolute. This makes the setup portable and easier to share across different systems or deploy to platforms like AWS or GitHub Pages.
