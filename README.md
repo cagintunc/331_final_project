@@ -59,6 +59,38 @@ To run these scripts, the following tools and Python libraries are required:
 
 ### How It Works
 
+#### Explanation of `dependencies.sh`
+
+The `dependencies.sh` script is designed to automate the installation and configuration of essential bioinformatics tools on an Ubuntu-based system. It simplifies the process of setting up dependencies required for working with JBrowse2, HTSlib, and related utilities.
+
+---
+
+##### **What the Script Does**
+
+1. **Updates the System**  
+   The script ensures that the package manager is up-to-date, allowing it to fetch and install the latest versions of required software.
+
+2. **Installs Necessary Development Tools**  
+   It installs tools and libraries essential for building software, handling compressed files, and managing secure network connections. These are foundational for bioinformatics workflows.
+
+3. **Installs JBrowse CLI**  
+   The script installs the JBrowse Command Line Interface (CLI), a powerful tool for managing JBrowse2 instances, which is widely used for genomic data visualization.
+
+4. **Downloads and Builds HTSlib**  
+   HTSlib, a core library for working with high-throughput sequencing data, is downloaded, configured, and compiled. This ensures compatibility with the system and enables operations on genomic data.
+
+5. **Installs Samtools**  
+   The script installs Samtools, a critical utility for processing and analyzing sequencing alignment data.
+
+6. **Performs a Final System Update**  
+   A final update ensures that all installed software is current and functioning optimally.
+
+---
+
+##### **Purpose of the Script**
+This script reduces manual effort by automating the setup process, ensuring consistency, and minimizing errors during the installation of bioinformatics tools. It is particularly useful for users who need a streamlined environment for genomic data analysis.
+
+
 #### `db.py`
 The `db.py` script automates the following steps:
 1. **Downloading Data**: Fetch genome sequences in FASTA format and annotation files in CDS or GFF format for SARS and MERS.
@@ -137,64 +169,29 @@ SARS and MERS are significant public health concerns, and their genomic analysis
 
 ---
 
-## `db.py`
-
-### Purpose
-
-The `db.py` script automates tasks such as:
-- Downloading genome and annotation data.
-- Processing and indexing data for JBrowse2.
-- Configuring JBrowse2 with assemblies and tracks.
-
-### How to Use
-1. Install Dependencies:
-   
-```bash
-pip install biopython sudo apt-get install tabix
-```
-
-2. Follow the prompts to clean directories or retain existing configurations.
----
-
-## `fix_config.py`
-
-### Purpose
-
-The `fix_config.py` script adjusts absolute paths in `config.json` to make it portable.
-
-### How to Use
-1. Place `fix_config.py` in the same directory as `config.json`.
-2. Run:
-```bash
-python3 fix_config.py
-```
----
-
-## Requirements
-
-- Python 3.x
-- Biopython
-- bgzip and tabix
-- JBrowse2
-
----
-
 ## Example Workflow
 
-1. Clone the repository.
-2. Run `db.py`:
+1. **Clone the repository by running the following command from your terminal**:
+```bash
+git clone https://github.com/cagintunc/331_final_project.git
+```
+2. **Run `dependencies.sh` by using the following command**:
+```bash
+./dependencies.sh
+```
+3. **Run `db.py`**:
 ```bash
 python3 db.py
 ```
-4. Adjust paths with `fix_config.py`:
+4. **Adjust paths with `fix_config.py`**:
 ```bash
 python3 fix_config.py
 ```
-5. Start a local server:
+5. **Start a local server**:
 ```bash
 python3 -m http.server 8000
 ```
-Open your browser at `http://localhost:8000`.
+Open your browser at `http://localhost:8000/jbrowse2`.
 
 ---
 
