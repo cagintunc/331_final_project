@@ -1,6 +1,26 @@
 # Customized Jbrowse2 on Your Local Computer
 
-## Authors
+# Table of contents
+1. [Authors](#authors)
+2. [Overview](#overview)
+    1. [Purpose of the Project](#purpose)
+    2. [Features of the Project](#features)
+3. [Required Tools and Dependencies](#tools_required)
+    1. [System Tools](#system_tools)
+    2. [Python Dependencies](#python_dependencies)
+4. [Compartments](#compartments)
+    1. [Explanation of dependencies.sh](#dependencies_exp)
+    2. [Explanation of db.py](#db_exp)
+    3. [Explanation of fix_config.py](#fix_config_exp)
+6. [Use Cases](#use_cases)
+7. [Why Use This Project?](#reason_to_use)
+8. [Example Workflow](#workflow)
+9. [Troubleshooting](#traubleshooting)
+10. [License](#license)
+
+---
+
+## Authors <a name="authors"></a>
 
 - **Cagin Tunc**  
   *Role:* Developer and Maintainer  
@@ -12,29 +32,30 @@
   *Email:* [john.doe@example.com](mailto:john.doe@example.com)
   *GitHub:* [https://github.com/johndoe](https://github.com/johndoe)  
 
-## Overview
+## Overview <a name="overview"></a>
 
-This repository contains two essential Python scripts, `db.py` and `fix_config.py`, designed to automate the setup, customization, and deployment of genome datasets for visualization and analysis using JBrowse 2. The project focuses on integrating genomic data for **SARS (Severe Acute Respiratory Syndrome)** and **MERS (Middle East Respiratory Syndrome)**, making it easier for researchers to explore and analyze these viral genomes.
+This repository contains two essential Python scripts, `db.py` and `fix_config.py` as well as one bash script, `dependencies.sh`, designed to automate the setup, customization, and deployment of genome datasets for visualization and analysis using JBrowse 2. The project focuses on integrating genomic data for **SARS (Severe Acute Respiratory Syndrome)** and **MERS (Middle East Respiratory Syndrome)**, making it easier for researchers to explore and analyze these viral genomes.
 
-### Purpose of the Project
+### Purpose of the Project <a name="purpose"></a>
 
 JBrowse 2 is a robust genome browser offering interactive visualizations for genomic data. However, setting up custom datasets can be challenging, especially for large and complex viral genomes like SARS and MERS. This project addresses these challenges by automating the process of downloading, processing, and preparing the data for use in JBrowse 2.
 
 By simplifying this workflow, researchers can focus on genomic analysis without the need for extensive technical knowledge.
 
-### Features
+### Features <a name="features"></a>
 
 - **Automated Genome and Annotation Downloads**: Retrieve genome sequences and annotation files for SARS and MERS from trusted repositories (e.g., NCBI) with ease.
 - **Annotation Conversion and Processing**: Convert annotation formats (e.g., CDS to GFF) to meet JBrowse 2 requirements.
 - **Compression and Indexing**: Leverage tools like `bgzip`, `tabix`, and `samtools` to prepare datasets for efficient browsing.
+- **Customization via Unique Plugins**: Utilize customized plugins to make the process easier for the users.
 - **Dynamic Configuration**: Automatically update the JBrowse `config.json` file with the assemblies and tracks for SARS and MERS genomes.
 - **Cross-Platform Support**: Works seamlessly on Linux-based environments, including WSL for Windows.
 
-### Required Tools and Dependencies
+## Required Tools and Dependencies <a name="tools_required"></a>
 
 To run these scripts, the following tools and Python libraries are required:
 
-#### System Tools—Note: They are directly installed by running the dependencies.sh bash code. There is no need to install them manually.
+### System Tools: Note that they are directly installed by running the `dependencies.sh` bash code. There is no need to install them manually. <a name="system_tools"></a>
 1. **`samtools`**: For indexing genome files in FASTA format (`.fai`).
    - Installation: `sudo apt-get install samtools`
 2. **`bgzip`**: For compressing annotation files in BGZF format.
@@ -48,7 +69,7 @@ To run these scripts, the following tools and Python libraries are required:
 6. **`jbrowse`**: The CLI for JBrowse 2 to add assemblies and tracks.
    - Installation: Follow [JBrowse CLI Installation Guide](https://jbrowse.org/cli/).
 
-#### Python Dependencies - For further information, please look the requirements.
+### Python Dependencies - For further information(versions of the libraries), please look the requirements. <a name="python_dependencies"></a>
 1. **Biopython**: Used for parsing CDS files and converting them to GFF format.
    - Installation: `pip install biopython`
 2. **gzip**: For handling gzipped files (bundled with Python's standard library).
@@ -57,15 +78,15 @@ To run these scripts, the following tools and Python libraries are required:
 5. **json**: For reading and writing JSON data, often used in configuration files and structured data management (bundled with Python's standard library).
 6. **os**: Provides functionalities for interacting with the operating system, such as file path manipulations and environment management (bundled with Python's standard library).
 
-### How It Works
+## Compartments <a name="compartments"></a>
 
-#### Explanation of `dependencies.sh`
+### Explanation of `dependencies.sh` <a name="dependencies_exp"></a>
 
 The `dependencies.sh` script is designed to automate the installation and configuration of essential bioinformatics tools on an Ubuntu-based system. It simplifies the process of setting up dependencies required for working with JBrowse2, HTSlib, and related utilities.
 
 ---
 
-##### **What the Script Does**
+#### **What the Script Does**
 
 1. **Updates the System**  
    The script ensures that the package manager is up-to-date, allowing it to fetch and install the latest versions of required software.
@@ -85,13 +106,20 @@ The `dependencies.sh` script is designed to automate the installation and config
 6. **Performs a Final System Update**  
    A final update ensures that all installed software is current and functioning optimally.
 
----
 
-##### **Purpose of the Script**
+#### Why Are These Tools Necessary?
+
+1. **`samtools`**: Indexes the genome FASTA files to allow JBrowse to retrieve sequences efficiently.
+2. **`bgzip` and `tabix`**: Compress and index annotation files for interactive browsing in JBrowse.
+3. **Biopython**: Automates complex tasks like parsing CDS files and converting them to GFF format.
+4. **JBrowse CLI**: Adds assemblies and tracks to JBrowse, ensuring they are displayed correctly.
+
+---
+#### **Purpose of the Script**
 This script reduces manual effort by automating the setup process, ensuring consistency, and minimizing errors during the installation of bioinformatics tools. It is particularly useful for users who need a streamlined environment for genomic data analysis.
 
 
-#### `db.py`
+### Explanation of `db.py` <a name="db_exp"></a>
 The `db.py` script automates the following steps:
 1. **Downloading Data**: Fetch genome sequences in FASTA format and annotation files in CDS or GFF format for SARS and MERS.
 2. **Annotation Conversion**: Converts CDS files to GFF format if needed.
@@ -147,29 +175,22 @@ GENOME_LINKS["ebola"] = {
 - **gff_path**: The local path for the GFF (gene annotation) file.
 
 
-#### `fix_config.py`
+### Explanation of `fix_config.py` <a name="fix_config_exp"></a>
 The `fix_config.py` script ensures the paths in the JBrowse configuration file (`config.json`) are relative instead of absolute. This makes the setup portable and easier to share across different systems or deploy to platforms like AWS or GitHub Pages.
 
-### Why Are These Tools Necessary?
-
-1. **`samtools`**: Indexes the genome FASTA files to allow JBrowse to retrieve sequences efficiently.
-2. **`bgzip` and `tabix`**: Compress and index annotation files for interactive browsing in JBrowse.
-3. **Biopython**: Automates complex tasks like parsing CDS files and converting them to GFF format.
-4. **JBrowse CLI**: Adds assemblies and tracks to JBrowse, ensuring they are displayed correctly.
-
-### Use Cases
+## Use Cases <a name="use_cases"></a>
 
 1. **Viral Genome Analysis**: Researchers can load SARS and MERS datasets into JBrowse and explore them interactively.
 2. **Dataset Portability**: Easily share or deploy JBrowse setups with collaborators or on web platforms.
 3. **Extensibility**: The scripts can be extended to support other viral datasets by updating the genome and annotation URLs in the code.
 
-### Why Use This Project?
+## Why Use This Project? <a name="reason_to_use"></a>
 
 SARS and MERS are significant public health concerns, and their genomic analysis can provide critical insights into viral behavior, mutations, and therapeutic targets. However, preparing these datasets for visualization can be challenging due to their size and complexity. This project automates the entire pipeline, from downloading and processing the data to configuring JBrowse 2, saving time and reducing errors. Researchers and bioinformaticians can now focus on analysis and discovery rather than tedious data preparation tasks.
 
 ---
 
-## Example Workflow
+## Example Workflow <a name="workflow"></a>
 
 1. **Clone the repository by running the following command from your terminal**:
 ```bash
@@ -195,7 +216,7 @@ Open your browser at `http://localhost:8000/jbrowse2`.
 
 ---
 
-## Troubleshooting
+## Troubleshooting <a name="troubleshooting"></a>
 
 - Ensure all dependencies are installed.
 - Check that files are correctly indexed.
@@ -203,7 +224,7 @@ Open your browser at `http://localhost:8000/jbrowse2`.
 
 ---
 
-## License
+## License <a name="license"></a>
 
 This project is licensed under the MIT License.
 
