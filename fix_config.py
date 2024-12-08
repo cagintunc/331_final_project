@@ -40,7 +40,7 @@ def fix_config_paths(config_path, base_dir):
     print("Fixed config.json paths and ensured .gz extensions.")
 
 
-def add_plugins(config_path):
+def add_plugins_and_tracks(config_path):
     config = None
     with open(config_path, "r") as file:
         config = json.load(file)
@@ -53,6 +53,28 @@ def add_plugins(config_path):
                     "image": "https://raw.githubusercontent.com/GMOD/jbrowse-plugin-list/main/img/protein3d-fs8.png"
         }]
         config["plugins"] = plugins
+        synteny_track = {
+                    "trackId": "mers_sars_paf",
+                    "type": "SyntenyTrack",
+                    "name": "MERS-SARS PAF Track",
+                    "assemblyNames": ["mers", "sars_cov_2"],
+                    "adapter": {
+                        "type": "PAFAdapter",
+                        "pafLocation": {
+                        "locationType": "UriLocation",
+                        "uri": "mers_sars.paf"
+                        },
+                        "assemblyNames": ["mers", "sars_cov_2"]
+                    },
+                    "renderer": {
+                        "type": "SyntenyRenderer",
+                        "config": {
+                        "colorBy": "meanQueryIdentity"
+                        }
+                    },
+                    "category": ["Synteny"]
+                }
+        config["tracks"].append(synteny_track)
 
     if config is not None:
         with open(config_path, "w") as config_file:
@@ -63,4 +85,4 @@ config_file = "jbrowse2/config.json"
 jbrowse_dir = "jbrowse2"
 
 fix_config_paths(config_file, jbrowse_dir)
-add_plugins(config_file)
+add_plugins_and_tracks(config_file)
