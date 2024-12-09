@@ -310,6 +310,8 @@ Open your browser at `http://localhost:8000/jbrowse2`.
 
 This project is licensed under the MIT License.
 
+---
 
+## Thank you!
 
 
