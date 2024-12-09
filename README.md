@@ -15,8 +15,13 @@
 6. [Use Cases](#use_cases)
 7. [Why Use This Project?](#reason_to_use)
 8. [Example Workflow](#workflow)
-9. [Troubleshooting](#traubleshooting)
-10. [License](#license)
+9. [Use Cases](#use_cases)
+    1. [Linear Genome View](#linear_genome)
+    2. [Linear Synteny View](#synteny)
+    3. [Protein View](#protein_view)
+    4. [Dotplot View](#dotplot)
+11. [Troubleshooting](#traubleshooting)
+12. [License](#license)
 
 ---
 
@@ -47,7 +52,7 @@ By simplifying this workflow, researchers can focus on genomic analysis without 
 - **Automated Genome and Annotation Downloads**: Retrieve genome sequences and annotation files for SARS and MERS from trusted repositories (e.g., NCBI) with ease.
 - **Annotation Conversion and Processing**: Convert annotation formats (e.g., CDS to GFF) to meet JBrowse 2 requirements.
 - **Compression and Indexing**: Leverage tools like `bgzip`, `tabix`, and `samtools` to prepare datasets for efficient browsing.
-- **Customization via Unique Plugins**: Utilize customized plugins to make the process easier for the users.
+- **Customization via Unique Plugins**: Utilize customized plugins (Protein view, synteny) to make the process easier for the users.
 - **Dynamic Configuration**: Automatically update the JBrowse `config.json` file with the assemblies and tracks for SARS and MERS genomes.
 - **Cross-Platform Support**: Works seamlessly on Linux-based environments, including WSL for Windows.
 
@@ -69,7 +74,7 @@ To run these scripts, the following tools and Python libraries are required:
 6. **`jbrowse`**: The CLI for JBrowse 2 to add assemblies and tracks.
    - Installation: Follow [JBrowse CLI Installation Guide](https://jbrowse.org/cli/).
 
-### Python Dependencies - For further information(versions of the libraries), please look the requirements. <a name="python_dependencies"></a>
+### Python Dependencies - For further information(versions of the libraries), please look the requirements.txt <a name="python_dependencies"></a>
 1. **Biopython**: Used for parsing CDS files and converting them to GFF format.
    - Installation: `pip install biopython`
 2. **gzip**: For handling gzipped files (bundled with Python's standard library).
@@ -116,7 +121,7 @@ The `dependencies.sh` script is designed to automate the installation and config
 
 ---
 #### **Purpose of the Script**
-This script reduces manual effort by automating the setup process, ensuring consistency, and minimizing errors during the installation of bioinformatics tools. It is particularly useful for users who need a streamlined environment for genomic data analysis.
+These scripts reduce manual effort by automating the setup process, ensuring consistency, and minimizing errors during the installation of bioinformatics tools. It is particularly useful for users who need a streamlined environment for genomic data analysis.
 
 
 ### Explanation of `db.py` <a name="db_exp"></a>
@@ -186,7 +191,7 @@ The `fix_config.py` script ensures the paths in the JBrowse configuration file (
 
 ## Why Use This Project? <a name="reason_to_use"></a>
 
-SARS and MERS are significant public health concerns, and their genomic analysis can provide critical insights into viral behavior, mutations, and therapeutic targets. However, preparing these datasets for visualization can be challenging due to their size and complexity. This project automates the entire pipeline, from downloading and processing the data to configuring JBrowse 2, saving time and reducing errors. Researchers and bioinformaticians can now focus on analysis and discovery rather than tedious data preparation tasks.
+This project automates the entire pipeline, from downloading and processing the data to configuring JBrowse 2, saving time and reducing errors. Researchers and bioinformaticians can now focus on analysis and discovery rather than tedious data preparation tasks.
 
 ---
 
@@ -214,6 +219,12 @@ python3 -m http.server 8000
 ```
 Open your browser at `http://localhost:8000/jbrowse2`.
 
+---
+## Use Cases <a name="use_cases"></a>
+### Linear Genome View <a name="linear_genome"></a>
+### Linear Synteny View <a name="synteny"></a>
+### Protein View <a name="protein_view"></a>
+### Dotplot View <a name="dotplot"></a>
 ---
 
 ## Troubleshooting <a name="troubleshooting"></a>
