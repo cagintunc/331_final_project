@@ -221,10 +221,81 @@ Open your browser at `http://localhost:8000/jbrowse2`.
 
 ---
 ## Use Cases <a name="use_cases"></a>
-### Linear Genome View <a name="linear_genome"></a>
-### Linear Synteny View <a name="synteny"></a>
-### Protein View <a name="protein_view"></a>
-### Dotplot View <a name="dotplot"></a>
+
+### 1. Linear Genome View <a name="linear_genome"></a>
+---
+
+#### 1. First open an empty session
+![Opening the linear genome view](screenshots/jbrowse_mainmenu.png)
+
+#### 2. From the combo box on the opened screen, select "Linear Genome View" and click "Launch View"
+![Opening the linear genome view](screenshots/sc2.png)
+
+#### 3. An empty view will be opened. Select the assembly that you want to see (SARS and MERS in our case), and click "Open".
+![Opening the linear genome view](screenshots/sc3.png)
+
+#### 4. From the opening view, click "Open Track Selector". Select the one which has "gff" extension. Then, you can see the track on the view.
+![Opening the linear genome view](screenshots/sc4.png)
+
+#### 5. If you want to add more genome views, you can click "Add" from the menu and choose "Linear Genome View" again.
+![Opening the linear genome view](screenshots/sc5.png)
+
+#### 6. Follow the same steps to open the track on your view. At the end, you can see your views one after another.
+![Opening the linear genome view](screenshots/sc6.png)
+
+---
+
+### 2. Linear Synteny View <a name="synteny"></a>
+---
+
+#### 1. Open an empty session. From the combo box, select "Linear Synteny View"
+![Opening the synteny view](screenshots/sccc1.png)
+
+#### 2. The following screen will be opened. Select your synteny track. Then, give your corresponding assemblies in each row.
+![Opening the synteny view](screenshots/sccc2.png)
+
+#### 3. Click "Launch". The following screen will be opened.
+![Opening the synteny view](screenshots/sccc3.png)
+
+#### 4. You can see the specific information about each match in the synteny by clicking onto the match on the view.
+![Opening the synteny view](screenshots/sccc4.png)
+
+---
+
+### 5. Protein View <a name="protein_view"></a>
+---
+
+#### 1. Open an empty session and select the "Protein View" from the combo box. After clicking on "Launch View", you will see the following screen. On the right side of the screen, you will see a navigation bar. Click the "Toggle Controls Panel".
+![Opening the protein view](screenshots/scc1.png)
+
+#### 2. From the opened screen, focus on the left side of the screen. First, select the PDB ID(s) of your target protein(s) (you can find your target PDB IDs by searching the product names of your proteins in Protein Data Bank: https://www.rcsb.org/). After writing the PDB ID(s), click "Apply". 
+![Opening the protein view](screenshots/scc2.png)
+
+#### 3. The state tree will be opened as you can see below. Here, first click "Assembly"; then from the opening combo box, select "Apply Action".
+![Opening the protein view](screenshots/scc3.png)
+
+#### 4. Click "3D Representation".
+![Opening the protein view](screenshots/scc4.png)
+
+#### 5. Next, from the opened combo box, you can customize your settings. When you are ready, click "Apply".
+![Opening the protein view](screenshots/scc5.png)
+
+#### 6. Now, you can see your protein as a 3D shape, which allows you to navigate the desired section interactively.
+![Opening the protein view](screenshots/scc6.png)
+
+#### 7. If you want to add more model, from the right navigation bar, select "Home". Then, follow the same process from the 2nd guideline.
+![Opening the protein view](screenshots/scc7.png)
+
+---
+
+### 6. Dotplot View <a name="dotplot"></a>
+---
+#### 1. Open an empty session and select the "Dotplot View" from the combo box. After clicking on "Launch View", you will see the following screen. From here, select your assemblies for your dotplot, and their associated alignment synteny track.
+![Opening the protein view](screenshots/scccc1.png)
+
+#### 2. After clicking "Launch", you will see the dotplot as follow.
+![Opening the protein view](screenshots/scccc2.png)
+
 ---
 
 ## Troubleshooting <a name="troubleshooting"></a>
