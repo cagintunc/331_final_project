@@ -32,10 +32,6 @@
   *Email:* [cagin_tunc@berkeley.edu](mailto:cagin_tunc@berkeley.edu)  
   *GitHub:* [https://github.com/cagintunc](https://github.com/cagintunc)  
 
-- **Justin Sung**  
-  *Role:* Developer and Maintainer  
-  *Email:* [jwsung@berkeley.edu](mailto:jwsung@berkeley.edu)
-  *GitHub:* [https://github.com/Jws0505](https://github.com/Jws0505)  
 
 ## Overview <a name="overview"></a>
 
